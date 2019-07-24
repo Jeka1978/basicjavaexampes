@@ -5,4 +5,7 @@ package com.attunity.lesson1;
  */
 public interface Animal {
     void makeVoice();
+
+
+
 }

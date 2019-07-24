@@ -5,8 +5,10 @@ package com.attunity.lesson1;
  */
 public class AnimalDoctor {
     public void treatAnimal(Animal animal) {
-        Class<? extends Animal> clazz = animal.getClass();
 
+        if (animal instanceof Dog) {
+            ((Dog) animal).bringStick();
+        }
         animal.makeVoice();
     }
 }
