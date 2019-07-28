@@ -19,4 +19,9 @@ public class JavaConfig implements Config {
     public <T> Class<T> getImplClass(Class<T> type) {
         return ifc2Class.get(type);
     }
+
+    @Override
+    public String getPackagesToScan() {
+        return "com.attunity";
+    }
 }
