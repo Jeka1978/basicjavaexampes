@@ -6,6 +6,7 @@ package com.attunity.my_spring;
 public interface ObjectConfigurator {
     void configure(Object t);
 
+
     default void setContext(ApplicationContext context){
     }
 }

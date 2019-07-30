@@ -1,5 +1,7 @@
 package com.attunity.my_spring;
 
+import javax.annotation.PostConstruct;
+
 /**
  * @author Evgeny Borisov
  */
@@ -10,8 +12,11 @@ public class IRobot {
     @InjectByType
     private Cleaner cleaner;
 
-    public IRobot() {
+    @PostConstruct
+    public void init() {
         System.out.println("I was created");
+        System.out.println(speaker.getClass());
+        System.out.println(cleaner.getClass());
     }
 
     public void cleanRoom() {
