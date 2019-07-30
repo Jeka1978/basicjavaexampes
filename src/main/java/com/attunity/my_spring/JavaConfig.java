@@ -9,11 +9,15 @@ import java.util.Map;
 public class JavaConfig implements Config {
 
     private Map<Class, Class> ifc2Class = new HashMap<>();
+    private String pacakgesNames;
 
-    public JavaConfig() {
+    public JavaConfig(String pacakgesNames) {
+        this.pacakgesNames = pacakgesNames;
         ifc2Class.put(Speaker.class, ConsoleSpeaker.class);
         ifc2Class.put(Cleaner.class, CleanerImpl.class);
     }
+
+
 
     @Override
     public <T> Class<T> getImplClass(Class<T> type) {
@@ -22,6 +26,6 @@ public class JavaConfig implements Config {
 
     @Override
     public String getPackagesToScan() {
-        return "com.attunity";
+        return pacakgesNames;
     }
 }

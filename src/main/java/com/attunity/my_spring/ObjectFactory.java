@@ -10,29 +10,28 @@ import java.util.Set;
 /**
  * @author Evgeny Borisov
  */
-public class ObjectFactory {
-    private static ObjectFactory ourInstance = new ObjectFactory();
-    private Config config = new JavaConfig();
+class ObjectFactory {
+
     private List<ObjectConfigurator> configurators = new ArrayList<>();
 
-    private Reflections scanner = new Reflections(config.getPackagesToScan());
+    private Reflections scanner;
 
-    public static ObjectFactory getInstance() {
-        return ourInstance;
-    }
 
     @SneakyThrows
-    private ObjectFactory() {
+    ObjectFactory(ApplicationContext context) {
+        scanner = new Reflections(context.getPackageNames());
         Set<Class<? extends ObjectConfigurator>> classes = scanner.getSubTypesOf(ObjectConfigurator.class);
         for (Class<? extends ObjectConfigurator> aClass : classes) {
-            configurators.add(aClass.newInstance());
+            ObjectConfigurator configurator = aClass.newInstance();
+            configurator.setContext(context);
+            configurators.add(configurator);
         }
     }
 
 
     @SneakyThrows
     public <T> T createObject(Class<T> type) {
-        type = resolveImpl(type);
+
         T t = type.newInstance();
 
         configure(t);
@@ -43,13 +42,6 @@ public class ObjectFactory {
 
     private <T> void configure(T t) {
         configurators.forEach(objectConfigurator -> objectConfigurator.configure(t));
-    }
-
-    private <T> Class<T> resolveImpl(Class<T> type) {
-        if (type.isInterface()) {
-            type = config.getImplClass(type);
-        }
-        return type;
     }
 
 

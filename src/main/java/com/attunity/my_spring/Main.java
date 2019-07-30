@@ -5,7 +5,11 @@ package com.attunity.my_spring;
  */
 public class Main {
     public static void main(String[] args) {
-        IRobot iRobot = ObjectFactory.getInstance().createObject(IRobot.class);
+        ApplicationContext context = new ApplicationContext("com.attunity");
+        IRobot iRobot = context.getOrCreateBean(IRobot.class);
+        context.getOrCreateBean(IRobot.class);
+        context.getOrCreateBean(IRobot.class);
+        context.getOrCreateBean(IRobot.class);
         iRobot.cleanRoom();
     }
 }

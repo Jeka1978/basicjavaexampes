@@ -5,6 +5,7 @@ import java.util.stream.IntStream;
 /**
  * @author Evgeny Borisov
  */
+
 public class CleanerImpl implements Cleaner {
 
     @InjectRandomInt(min=3,max=7)
@@ -15,6 +16,5 @@ public class CleanerImpl implements Cleaner {
         IntStream.range(0, repeat).forEach(value -> {
             System.out.println("VVVVVVVVVVVVvvvvvvvvvvvvvvvvvv");
         });
-
     }
 }
